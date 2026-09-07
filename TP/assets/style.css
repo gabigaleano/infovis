@@ -1,0 +1,520 @@
+/* ============================================================
+   Mi movilidad — hoja de estilos
+   Concepto: bitácora de viaje / boleto de transporte público.
+   Tipografía: Big Shoulders (señalética urbana) + Public Sans (lectura)
+   + IBM Plex Mono (cifras, como un tablero de salidas).
+   Paleta de gráficos validada con el método de dataviz (palette.md).
+   ============================================================ */
+
+:root {
+  color-scheme: light;
+  --ground:      #eef0eb;   /* pavimento — plano de página */
+  --surface:     #fffefa;   /* papel de boleto — tarjetas   */
+  --surface-2:   #e6e8e1;
+  --ink:         #14161a;
+  --ink-2:       #4d5058;
+  --muted:       #82858c;
+  --grid:        #d9dbd3;
+  --baseline:    #c3c2b7;
+  --border:      rgba(20,22,26,0.14);
+  --border-strong: rgba(20,22,26,0.5);
+
+  --casa:        #2a78d6; /* slot 1 blue   */
+  --trabajo:     #eb6834; /* slot 2 orange — también acento de marca */
+  --social:      #1baf7a; /* slot 3 aqua   */
+  --sindatos:    #cfd0c8;
+
+  --seq-200: #9ec5f4;
+  --seq-350: #5598e7;
+  --seq-500: #256abf;
+  --seq-650: #104281;
+
+  --accent:      var(--trabajo);
+  --accent-ink:  #fff6ee;
+  --shadow: 0 1px 2px rgba(20,16,10,0.05), 0 14px 32px -18px rgba(20,16,10,0.35);
+
+  --font-display: "Big Shoulders", "Arial Narrow", sans-serif;
+  --font-body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --ground:      #0c0d10;
+    --surface:     #1a1c20;
+    --surface-2:   #232529;
+    --ink:         #f3f2ec;
+    --ink-2:       #b7b9c0;
+    --muted:       #888b93;
+    --grid:        #2c2e33;
+    --baseline:    #3a3c42;
+    --border:      rgba(255,255,255,0.12);
+    --border-strong: rgba(255,255,255,0.5);
+
+    --casa:        #3987e5;
+    --trabajo:     #ef7c46;
+    --social:      #199e70;
+    --sindatos:    #34363b;
+
+    --seq-200: #6da7ec;
+    --seq-350: #2a78d6;
+    --seq-500: #184f95;
+    --seq-650: #0d366b;
+
+    --accent-ink:  #1a1006;
+    --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 16px 36px -18px rgba(0,0,0,0.7);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ground:      #0c0d10;
+  --surface:     #1a1c20;
+  --surface-2:   #232529;
+  --ink:         #f3f2ec;
+  --ink-2:       #b7b9c0;
+  --muted:       #888b93;
+  --grid:        #2c2e33;
+  --baseline:    #3a3c42;
+  --border:      rgba(255,255,255,0.12);
+  --border-strong: rgba(255,255,255,0.5);
+
+  --casa:        #3987e5;
+  --trabajo:     #ef7c46;
+  --social:      #199e70;
+  --sindatos:    #34363b;
+
+  --seq-200: #6da7ec;
+  --seq-350: #2a78d6;
+  --seq-500: #184f95;
+  --seq-650: #0d366b;
+
+  --accent-ink:  #1a1006;
+  --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 16px 36px -18px rgba(0,0,0,0.7);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, .display {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  font-weight: 700;
+}
+
+.mono, .num, .ticket-field b, .stat-tile .num, .bar-label, .axis text, .kicker-no {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.wrap.wide { max-width: 1060px; }
+
+/* ---------- theme toggle ---------- */
+.theme-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 50;
+  width: 42px;
+  height: 42px;
+  border-radius: 3px;
+  border: 1.5px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 17px;
+  box-shadow: var(--shadow);
+}
+.theme-toggle:hover { background: var(--surface-2); }
+.theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ============================================================
+   HERO — boleto de viaje
+   ============================================================ */
+.ticket-hero {
+  margin: 28px auto 0;
+  max-width: 900px;
+  padding: 0 20px;
+}
+.ticket {
+  background: var(--surface);
+  border: 1.5px solid var(--border-strong);
+  border-radius: 4px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  position: relative;
+}
+.ticket-stripe {
+  height: 10px;
+  background: repeating-linear-gradient(
+    -45deg, var(--accent) 0 14px, transparent 14px 28px
+  );
+  opacity: 0.9;
+}
+.ticket-body { padding: 38px clamp(20px, 5vw, 56px) 28px; }
+.ticket-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 22px;
+}
+.ticket-row span b { color: var(--ink-2); font-weight: 600; }
+
+.ticket h1 {
+  font-size: clamp(38px, 7vw, 64px);
+  line-height: 0.98;
+  margin: 0 0 20px;
+  letter-spacing: 0;
+}
+.ticket h1 .line2 { color: var(--accent); display: block; }
+
+.ticket p.lede {
+  max-width: 560px;
+  color: var(--ink-2);
+  font-size: 16.5px;
+  margin: 0 0 30px;
+}
+
+.perforation {
+  position: relative;
+  height: 0;
+  border-top: 2px dashed var(--border-strong);
+  margin: 0 clamp(20px, 5vw, 56px);
+}
+.perforation::before, .perforation::after {
+  content: "";
+  position: absolute;
+  top: -11px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--ground);
+  border: 1.5px solid var(--border-strong);
+}
+.perforation::before { left: -31px; }
+.perforation::after { right: -31px; }
+
+.ticket-fields {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  padding: 24px clamp(20px, 5vw, 56px) 30px;
+}
+.ticket-field {
+  padding: 0 16px;
+  border-left: 1px dashed var(--grid);
+}
+.ticket-field:first-child { border-left: none; padding-left: 0; }
+.ticket-field label {
+  display: block;
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.ticket-field b {
+  display: block;
+  font-size: clamp(15px, 2.6vw, 20px);
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.15;
+}
+@media (max-width: 640px) {
+  .ticket-fields { grid-template-columns: repeat(2, 1fr); row-gap: 18px; }
+  .ticket-field:nth-child(3) { border-left: none; }
+}
+
+/* ============================================================
+   ROUTE LINE — columna de capítulos con parada numerada.
+   El punto y la línea se calculan contra el MISMO borde
+   izquierdo de .wrap.wide (centrado, max-width 1060px), así
+   que quedan alineados sin importar el ancho de la ventana.
+   ============================================================ */
+main { position: relative; }
+
+section.chapter {
+  padding: 68px 0;
+  border-top: 1.5px dashed var(--grid);
+  position: relative;
+}
+section.chapter:first-of-type { border-top: none; }
+
+.stop-marker {
+  display: none;
+}
+@media (min-width: 860px) {
+  /* Todo se ancla a .wrap.wide en coordenadas LOCALES (no a %
+     del viewport), para que quede alineado sin importar si
+     .wrap.wide está centrado (viewport ancho) o pegado al
+     borde (viewport angosto, entre 860 y ~1100px). */
+  main .wrap.wide { padding-left: 84px; position: relative; }
+
+  /* línea vertical: centrada sobre la parada (left:20px + mitad de 34px = 37px) */
+  .wrap.wide::before {
+    content: "";
+    position: absolute;
+    left: 37px;
+    top: -68px;    /* sube hasta tocar la parada del capítulo anterior */
+    bottom: -68px; /* baja hasta tocar la del siguiente */
+    width: 2px;
+    background: var(--grid);
+    z-index: 0;
+  }
+  section.chapter:first-of-type .wrap.wide::before { top: 66px; }
+  section.chapter:last-of-type .wrap.wide::before { bottom: auto; height: 40px; }
+
+  .stop-marker {
+    display: flex;
+    position: absolute;
+    left: 20px;
+    top: 66px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 2.5px solid var(--stop-color, var(--accent));
+    background: var(--surface);
+    color: var(--stop-color, var(--accent));
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 13px;
+    box-shadow: var(--shadow);
+    z-index: 1;
+  }
+}
+
+.chapter .kicker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--stop-color, var(--accent));
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0 0 12px;
+}
+.kicker-no {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  font-size: 11px;
+}
+@media (min-width: 860px) { .kicker-no { display: none; } }
+
+.chapter h2 {
+  font-size: clamp(24px, 4vw, 36px);
+  line-height: 1.08;
+  margin: 0 0 16px;
+  text-transform: none;
+  letter-spacing: -0.005em;
+}
+.chapter p.lede {
+  color: var(--ink-2);
+  font-size: 16px;
+  max-width: 640px;
+  margin: 0 0 28px;
+}
+
+.card {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 4px;
+  padding: 24px clamp(16px, 4vw, 28px) 20px;
+  box-shadow: var(--shadow);
+  position: relative;
+}
+.card::before {
+  content: "";
+  position: absolute;
+  top: -1.5px; left: 22px; right: 22px;
+  height: 1.5px;
+  background: repeating-linear-gradient(90deg, var(--border-strong) 0 6px, transparent 6px 12px);
+}
+
+.insight {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin: 20px 0 0;
+  padding: 15px 18px;
+  background: var(--surface-2);
+  border-left: 3px solid var(--stop-color, var(--accent));
+  border-radius: 2px;
+  font-size: 14.5px;
+  color: var(--ink-2);
+}
+.insight strong { color: var(--ink); font-weight: 700; }
+.insight .ico {
+  flex: none;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 11px;
+  color: var(--stop-color, var(--accent));
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding-top: 2px;
+}
+
+/* ---------- legends ---------- */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  font-size: 12.5px;
+  font-family: var(--font-mono);
+  color: var(--ink-2);
+  margin: 0 0 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px dashed var(--grid);
+}
+.legend .item { display: flex; align-items: center; gap: 7px; }
+.legend .swatch { width: 11px; height: 11px; border-radius: 2px; flex: none; }
+
+/* ---------- tooltip ---------- */
+.viz-tooltip {
+  position: fixed;
+  pointer-events: none;
+  background: var(--ink);
+  color: var(--ground);
+  padding: 9px 11px;
+  border-radius: 3px;
+  font-size: 12.5px;
+  font-family: var(--font-body);
+  line-height: 1.4;
+  max-width: 230px;
+  opacity: 0;
+  transform: translate(-50%, calc(-100% - 12px));
+  transition: opacity 0.08s ease;
+  z-index: 60;
+  box-shadow: var(--shadow);
+}
+.viz-tooltip.show { opacity: 1; }
+.viz-tooltip b { font-weight: 700; }
+
+/* ---------- map ---------- */
+#map-canvas {
+  width: 100%;
+  height: 440px;
+  border-radius: 2px;
+  overflow: hidden;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+}
+.leaflet-container { background: var(--surface-2) !important; font-family: var(--font-body); }
+
+/* ---------- axes / bars (svg) ---------- */
+.axis text { fill: var(--muted); font-size: 11px; }
+.axis .domain, .axis line { stroke: var(--grid); }
+.gridline { stroke: var(--grid); stroke-width: 1; }
+.bar-label { fill: var(--ink); font-size: 12px; font-weight: 600; }
+.bar-sub   { fill: var(--muted); font-size: 10.5px; font-family: var(--font-mono); }
+
+/* ---------- heatmap ---------- */
+.heat-cell { stroke: var(--surface); stroke-width: 2px; cursor: pointer; }
+.heat-cell.dim { opacity: 0.25; }
+.heat-cell.hi  { stroke: var(--ink); stroke-width: 2px; }
+
+/* ---------- rain bars ---------- */
+.rain-charts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+@media (max-width: 620px) {
+  .rain-charts { grid-template-columns: 1fr; }
+}
+.rain-charts h3 {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 0 0 10px;
+  color: var(--ink-2);
+}
+
+.headline-stat {
+  text-align: center;
+  padding: 6px 12px 24px;
+}
+.headline-stat .big {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 9vw, 76px);
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 0.95;
+}
+.headline-stat .cap {
+  color: var(--ink-2);
+  font-size: 15px;
+  margin-top: 10px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ---------- Tableau embed section ---------- */
+.tableau-frame {
+  border: 1.5px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--surface-2);
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tableau-frame .placeholder {
+  text-align: center;
+  color: var(--muted);
+  font-size: 14px;
+  padding: 40px;
+  max-width: 420px;
+}
+
+/* ---------- footer ---------- */
+footer {
+  padding: 56px 0 90px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+footer a { color: var(--accent); }
+
+@media (max-width: 560px) {
+  .ticket-body { padding: 30px 20px 22px; }
+  section.chapter { padding: 52px 0; }
+  .card { padding: 18px 14px 16px; }
+}

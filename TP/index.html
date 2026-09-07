@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi movilidad — Visualización de datos personales</title>
+<meta name="description" content="Un año y medio de mis desplazamientos, lugares y rutinas — con el dashboard original hecho en Tableau, y un cruce con clima histórico de Buenos Aires.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders:wght@600;700;800&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<button class="theme-toggle" id="themeToggle" title="Cambiar tema" aria-label="Cambiar tema">🌙</button>
+
+<div class="ticket-hero">
+  <div class="ticket">
+    <div class="ticket-stripe"></div>
+    <div class="ticket-body">
+      <div class="ticket-row">
+        <span>Boleto Nº <b>MOV-2025-2026</b></span>
+        <span>Trabajo práctico · <b>Visualización de datos</b></span>
+      </div>
+      <h1>Mi movilidad,<span class="line2">de punta a punta.</span></h1>
+      <p class="lede">
+        Entre abril de 2025 y agosto de 2026 mi teléfono registró cada lugar donde estuve
+        y cada viaje que hice. Este es el recorrido de esos datos: el dashboard que armé en
+        Tableau, y una parada extra cruzando mis salidas con el clima.
+      </p>
+    </div>
+    <div class="perforation"></div>
+    <div class="ticket-fields" id="statRow"><!-- filled by JS --></div>
+  </div>
+</div>
+
+<main>
+
+  <section class="chapter" id="dashboard" style="--stop-color:var(--casa)">
+    <div class="wrap wide">
+      <span class="stop-marker">1</span>
+      <p class="kicker"><span class="kicker-no">1</span>Parada 1 · El dashboard</p>
+      <h2>¿Dónde transcurre mi vida y cómo se distribuye mi semana?</h2>
+      <p class="lede">Este es el dashboard original que armé en Tableau: un mapa de cada lugar que visité,
+        enlazado a un mapa de calor de mi semana. Tocá una celda del calendario para filtrar el mapa por ese
+        horario — es la misma interacción que diseñé en Tableau, ahora embebida en vivo.</p>
+      <div class="card">
+        <div class="tableau-frame" style="height:900px">
+          <iframe src="https://public.tableau.com/views/Graphs_17883050788860/Dashboard1?:showVizHome=no&:embed=true"
+                  width="100%" height="900" style="border:none" loading="lazy"
+                  title="Dashboard de movilidad — mapa y rutina semanal"></iframe>
+        </div>
+      </div>
+      <p class="insight"><span class="ico">Lectura</span>
+        <span id="mapInsight">Cargando…</span></p>
+      <p style="text-align:right;margin-top:8px">
+        <a href="https://public.tableau.com/app/profile/gabriel.ivan.galeano.has/viz/Graphs_17883050788860/Dashboard1" target="_blank" rel="noopener" style="font-family:var(--font-mono);font-size:12px;color:var(--muted)">
+          Ver en Tableau Public ↗</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="chapter" id="ciudades" style="--stop-color:var(--social)">
+    <div class="wrap wide">
+      <span class="stop-marker">2</span>
+      <p class="kicker"><span class="kicker-no">2</span>Parada 2</p>
+      <h2>¿En qué ciudades pasa mi tiempo, en realidad?</h2>
+      <p class="lede">Google agrupa mis paradas por ciudad/localidad del Gran Buenos Aires. El tamaño de cada
+        rectángulo es tiempo total acumulado, no cantidad de visitas.</p>
+      <div class="card">
+        <div class="tableau-frame" style="height:480px">
+          <iframe src="https://public.tableau.com/views/Graphs_17883050788860/Hoja2?:showVizHome=no&:embed=true"
+                  width="100%" height="480" style="border:none" loading="lazy" title="Tiempo por ciudad"></iframe>
+        </div>
+      </div>
+      <p class="insight"><span class="ico">Lectura</span>
+        <span id="ciudadesInsight">Cargando…</span></p>
+    </div>
+  </section>
+
+  <section class="chapter" id="vehiculos" style="--stop-color:var(--casa)">
+    <div class="wrap wide">
+      <span class="stop-marker">3</span>
+      <p class="kicker"><span class="kicker-no">3</span>Parada 3</p>
+      <h2>¿En qué medio de transporte recorrí más kilómetros?</h2>
+      <p class="lede">Sumé la distancia de cada viaje registrado, separada por el vehículo detectado.</p>
+      <div class="card">
+        <div class="tableau-frame" style="height:560px">
+          <iframe src="https://public.tableau.com/views/Graphs_17883050788860/Hoja3?:showVizHome=no&:embed=true"
+                  width="100%" height="560" style="border:none" loading="lazy" title="Kilómetros por vehículo"></iframe>
+        </div>
+      </div>
+      <p class="insight"><span class="ico">Lectura</span>
+        <span id="vehiculosInsight">Cargando…</span></p>
+    </div>
+  </section>
+
+  <section class="chapter" id="lugares" style="--stop-color:var(--trabajo)">
+    <div class="wrap wide">
+      <span class="stop-marker">4</span>
+      <p class="kicker"><span class="kicker-no">4</span>Parada 4</p>
+      <h2>¿A qué lugares voy con más frecuencia?</h2>
+      <p class="lede">Ranking de paradas puntuales por cantidad de visitas — desde mi casa hasta cada
+        sucursal donde trabajo.</p>
+      <div class="card">
+        <div class="tableau-frame" style="height:420px">
+          <iframe src="https://public.tableau.com/views/Graphs_17883050788860/Hoja4?:showVizHome=no&:embed=true"
+                  width="100%" height="420" style="border:none" loading="lazy" title="Visitas por lugar"></iframe>
+        </div>
+      </div>
+      <p class="insight"><span class="ico">Lectura</span>
+        <span id="lugaresInsight">Cargando…</span></p>
+    </div>
+  </section>
+
+  <section class="chapter" id="tendencia" style="--stop-color:var(--social)">
+    <div class="wrap wide">
+      <span class="stop-marker">5</span>
+      <p class="kicker"><span class="kicker-no">5</span>Parada 5</p>
+      <h2>¿Cómo cambiaron mis salidas de fin de semana durante 2026?</h2>
+      <p class="lede">Horas totales fuera de casa los sábados y domingos, mes a mes, de enero a agosto de 2026.</p>
+      <div class="card">
+        <div class="tableau-frame" style="height:460px">
+          <iframe src="https://public.tableau.com/views/Graphs_17883050788860/Hoja5?:showVizHome=no&:embed=true"
+                  width="100%" height="460" style="border:none" loading="lazy" title="Tendencia de salidas de fin de semana"></iframe>
+        </div>
+      </div>
+      <p class="insight"><span class="ico">Lectura</span>
+        <span id="tendenciaInsight">Cargando…</span></p>
+    </div>
+  </section>
+
+  <section class="chapter" id="clima" style="--stop-color:var(--trabajo)">
+    <div class="wrap wide">
+      <span class="stop-marker">6</span>
+      <p class="kicker"><span class="kicker-no">6</span>Parada 6 · Dato enriquecido con clima</p>
+      <h2>Los fines de semana que llueve, ¿salgo igual?</h2>
+      <p class="lede">
+        Mis datos de ubicación no dicen nada sobre el clima, así que crucé cada sábado y domingo
+        del período con la lluvia caída ese día en Buenos Aires
+        (<a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>, histórico ERA5).
+        Clasifiqué cada finde en cuatro niveles de lluvia y comparé cuánto me moví y cuánto salí.
+      </p>
+      <div class="card">
+        <div class="headline-stat" id="climaHeadline"></div>
+        <div class="rain-charts">
+          <div>
+            <h3>Kilómetros recorridos (promedio)</h3>
+            <svg id="chartLluviaKm" width="100%" height="220"></svg>
+          </div>
+          <div>
+            <h3>Horas en salidas sociales (promedio)</h3>
+            <svg id="chartLluviaSocial" width="100%" height="220"></svg>
+          </div>
+        </div>
+      </div>
+      <p class="insight"><span class="ico">Lectura</span>
+        <span id="climaInsight">Cargando…</span></p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Dashboard y gráficos originales hechos en <a href="https://public.tableau.com/app/profile/gabriel.ivan.galeano.has/vizzes" target="_blank" rel="noopener">Tableau Public</a>,
+      a partir de datos propios de Google Timeline (abril 2025 – agosto 2026), cruzados con clima histórico de
+      <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>.<br>
+      Trabajo Práctico — Visualización de Datos Personales, ITBA, 2026.</p>
+  </div>
+</footer>
+
+<div class="viz-tooltip" id="tooltip"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script src="assets/data.js"></script>
+<script src="assets/script.js"></script>
+</body>
+</html>
