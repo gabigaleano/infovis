@@ -156,7 +156,7 @@ function renderTendenciaInsight(trend) {
   const low = fullMonths.reduce((a, b) => b.horas < a.horas ? b : a);
   document.getElementById('tendenciaInsight').innerHTML =
     `Mi pico de salidas de fin de semana fue <strong>${formatMes(peak.mes)}</strong> (${fmt(peak.horas)} h fuera de casa); ` +
-    `el mes más casero fue ${formatMes(low.mes)}, con solo ${fmt(low.horas)} h (comparando meses completos).`;
+    `el mes que más pasé en casa fue ${formatMes(low.mes)}, con ${fmt(low.horas)} h (comparando meses completos).`;
 }
 
 /* ---------------------------------------------------------

@@ -19,8 +19,8 @@
   --border:      rgba(20,22,26,0.14);
   --border-strong: rgba(20,22,26,0.5);
 
-  --casa:        #2a78d6; /* slot 1 blue   */
-  --trabajo:     #eb6834; /* slot 2 orange — también acento de marca */
+  --casa:        #27aab0; /* slot 1 blue   */
+  --trabajo:     #51d2bb; /* slot 2 light green*/
   --social:      #1baf7a; /* slot 3 aqua   */
   --sindatos:    #cfd0c8;
 
@@ -52,9 +52,9 @@
     --border:      rgba(255,255,255,0.12);
     --border-strong: rgba(255,255,255,0.5);
 
-    --casa:        #3987e5;
-    --trabajo:     #ef7c46;
-    --social:      #199e70;
+    --casa:        #27aab0;
+    --trabajo:     #51d2bb;
+    --social:      #1baf7a;
     --sindatos:    #34363b;
 
     --seq-200: #6da7ec;
@@ -79,9 +79,9 @@
   --border:      rgba(255,255,255,0.12);
   --border-strong: rgba(255,255,255,0.5);
 
-  --casa:        #3987e5;
-  --trabajo:     #ef7c46;
-  --social:      #199e70;
+  --casa:        #27aab0;
+  --trabajo:     #51d2bb;
+  --social:      #1baf7a;
   --sindatos:    #34363b;
 
   --seq-200: #6da7ec;
