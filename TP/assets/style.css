@@ -368,8 +368,8 @@ section.chapter:first-of-type { border-top: none; }
   align-items: flex-start;
   margin: 20px 0 0;
   padding: 15px 18px;
-  /*background: var(--surface-2);
-  border-left: 3px solid var(--stop-color, var(--accent));*/
+  background: var(--surface-2);
+  /*border-left: 3px solid var(--stop-color, var(--accent));*/
   border-radius: 2px;
   font-size: 14.5px;
   color: var(--ink-2);
