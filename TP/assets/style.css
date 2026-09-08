@@ -123,7 +123,7 @@ h1, h2, .display {
   padding: 0 20px;
 }
 .wrap.wide { max-width: 1060px; }
-.wrap.wide.wrap-dashboard { max-width: 1380px; }
+.wrap.wide.wrap-dashboard { max-width: 980px; }
 .wrap-dashboard .card { padding-left: 12px; padding-right: 12px; }
 @media (min-width: 860px) and (max-width: 1500px) {
   main .wrap.wide.wrap-dashboard { padding-left: 60px; }
