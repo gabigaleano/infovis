@@ -76,9 +76,6 @@ function init(data) {
   renderLugaresInsight(data.placetypes);
   renderTendenciaInsight(data.weekend_trend);
   renderClima(data.rain_cat, data.weather_summary);
-
-  window.addEventListener('resize', debounce(() => renderClima(data.rain_cat, data.weather_summary), 200));
-  window.addEventListener('theme-changed', () => renderClima(data.rain_cat, data.weather_summary));
 }
 
 /* ---------------------------------------------------------
@@ -108,7 +105,7 @@ function renderMapInsight(points) {
     `<strong>${topFuera.nombre}</strong> (${topFuera.barrio !== 'Desconocido' ? topFuera.barrio + ', ' : ''}${topFuera.ciudad}), ` +
     `con ${fmt(topFuera.horas)} horas en ${topFuera.visitas} visitas. En el mapa de calor, cada celda es una ` +
     `hora de la semana coloreada por cuánto tiempo pasé fuera de casa en ese bloque — los azules oscuros ` +
-    `marcan mis horarios con más movimiento.`;
+    `marcan mis horarios de trabajo más consistentes.`;
 }
 
 /* ---------------------------------------------------------
@@ -142,9 +139,9 @@ function renderLugaresInsight(placetypes) {
   const trabajo = placetypes.find(p => p.categoria === 'Trabajo');
   document.getElementById('lugaresInsight').innerHTML =
     `El trabajo es, en realidad, mi categoría con <strong>más paradas registradas</strong> ` +
-    `pero son mucho más cortas: ` +
+    `(${fmt(trabajo.visitas)}, contra ${fmt(casa.visitas)} en casa) — pero son mucho más cortas: ` +
     `en promedio ${fmt1(trabajo.horas / trabajo.visitas)} h por parada de trabajo, contra ` +
-    `${fmt1(casa.horas / casa.visitas)} h por estadía en casa.`;
+    `${fmt1(casa.horas / casa.visitas)} h por estadía en casa (ahí entra el sueño).`;
 }
 
 /* ---------------------------------------------------------
@@ -163,69 +160,27 @@ function renderTendenciaInsight(trend) {
 }
 
 /* ---------------------------------------------------------
-   Parada 6 — Clima (ordinal, 4 categorías, dos mini-charts)
+   Parada 6 — Clima. Los dos gráficos de barras ahora son
+   embeds de Datawrapper (ver index.html); acá solo se arma
+   el número grande y el texto de lectura.
 --------------------------------------------------------- */
-function ordinalBars(svgSel, items, valueKey, fmtFn) {
-  const svg = d3.select(svgSel);
-  svg.selectAll('*').remove();
-  const width = svg.node().parentElement.clientWidth;
-  const height = 220;
-  const margin = { top: 10, right: 10, bottom: 46, left: 14 };
-  svg.attr('viewBox', `0 0 ${width} ${height}`).attr('height', height);
-
-  const ramp = ['--seq-200', '--seq-350', '--seq-500', '--seq-650'].map(cssVar);
-  const x = d3.scaleBand().domain(items.map(d => d.rain_cat)).range([margin.left, width - margin.right]).padding(0.32);
-  const y = d3.scaleLinear().domain([0, d3.max(items, d => d[valueKey]) * 1.3]).range([height - margin.bottom, margin.top]);
-
-  const g = svg.append('g');
-  const rows = g.selectAll('g').data(items).join('g');
-  rows.append('rect')
-    .attr('x', d => x(d.rain_cat)).attr('width', x.bandwidth())
-    .attr('y', height - margin.bottom).attr('height', 0)
-    .attr('rx', 2)
-    .attr('fill', (d, i) => ramp[i])
-    .transition().duration(600)
-    .attr('y', d => y(d[valueKey]))
-    .attr('height', d => height - margin.bottom - y(d[valueKey]));
-
-  rows.append('text')
-    .attr('x', d => x(d.rain_cat) + x.bandwidth() / 2)
-    .attr('y', d => y(d[valueKey]) - 8)
-    .attr('text-anchor', 'middle').attr('class', 'bar-label')
-    .text(d => fmtFn(d[valueKey]));
-
-  rows.append('text')
-    .attr('x', d => x(d.rain_cat) + x.bandwidth() / 2)
-    .attr('y', height - margin.bottom + 18)
-    .attr('text-anchor', 'middle').attr('class', 'bar-sub')
-    .text(d => d.rain_cat);
-  rows.append('text')
-    .attr('x', d => x(d.rain_cat) + x.bandwidth() / 2)
-    .attr('y', height - margin.bottom + 32)
-    .attr('text-anchor', 'middle').attr('class', 'bar-sub')
-    .style('opacity', 0.7)
-    .text(d => `n=${d.n}`);
-
-  rows.on('mousemove', (evt, d) => showTooltip(`<b>${d.rain_cat}</b><br>${d.n} fines de semana en esta categoría`, evt))
-    .on('mouseleave', hideTooltip);
-}
-
 function renderClima(rainCat, summary) {
-  ordinalBars('#chartLluviaKm', rainCat, 'km', d => fmt1(d) + ' km');
-  ordinalBars('#chartLluviaSocial', rainCat, 'social_h', d => fmt1(d) + ' h');
-
   const seco = rainCat.find(r => r.rain_cat === 'Seco');
   const fuerte = rainCat.find(r => r.rain_cat === 'Lluvia fuerte');
   const kmDrop = Math.round((1 - fuerte.km / seco.km) * 100);
-  const socialDrop = Math.round((1 - fuerte.social_h / seco.social_h) * 100);
+  const socialChange = Math.round((fuerte.social_h / seco.social_h - 1) * 100);
 
   document.getElementById('climaHeadline').innerHTML =
     `<div class="big">-${kmDrop}%</div>
      <div class="cap">de kilómetros recorridos en fines de semana con <b>lluvia fuerte</b> (≥15&nbsp;mm)
      frente a fines de semana secos (${fmt1(seco.km)} km → ${fmt1(fuerte.km)} km).</div>`;
 
+  const socialTxt = socialChange >= 0
+    ? `de hecho <strong>subieron un ${Math.abs(socialChange)}%</strong>`
+    : `<strong>bajaron un ${Math.abs(socialChange)}%</strong>`;
+
   document.getElementById('climaInsight').innerHTML =
     `No dejo de salir de casa cuando llueve (solo ${summary.pct_home_rainy}% de los fines lluviosos me quedo todo el día adentro, ` +
-    `muy similar al ${summary.pct_home_dry}% de los secos) — pero cuando la lluvia es fuerte, mis salidas sociales caen un ` +
-    `<strong>${socialDrop}%</strong> y me muevo mucho menos: cambio el plan afuera por quedarme más cerca.`;
+    `similar al ${summary.pct_home_dry}% de los secos): recorro muchos menos kilómetros (-${kmDrop}%), pero mis horas en salidas ` +
+    `sociales ${socialTxt} frente a los fines de semana secos — cuando llueve fuerte no me quedo, elijo planes más cerca de casa.`;
 }
