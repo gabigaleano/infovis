@@ -108,7 +108,7 @@ function renderMapInsight(points) {
     `<strong>${topFuera.nombre}</strong> (${topFuera.barrio !== 'Desconocido' ? topFuera.barrio + ', ' : ''}${topFuera.ciudad}), ` +
     `con ${fmt(topFuera.horas)} horas en ${topFuera.visitas} visitas. En el mapa de calor, cada celda es una ` +
     `hora de la semana coloreada por cuánto tiempo pasé fuera de casa en ese bloque — los azules oscuros ` +
-    `marcan mis horarios de trabajo más consistentes.`;
+    `marcan mis horarios con más movimiento.`;
 }
 
 /* ---------------------------------------------------------
@@ -142,21 +142,24 @@ function renderLugaresInsight(placetypes) {
   const trabajo = placetypes.find(p => p.categoria === 'Trabajo');
   document.getElementById('lugaresInsight').innerHTML =
     `El trabajo es, en realidad, mi categoría con <strong>más paradas registradas</strong> ` +
-    `(${fmt(trabajo.visitas)}, contra ${fmt(casa.visitas)} en casa) — pero son mucho más cortas: ` +
+    `pero son mucho más cortas: ` +
     `en promedio ${fmt1(trabajo.horas / trabajo.visitas)} h por parada de trabajo, contra ` +
-    `${fmt1(casa.horas / casa.visitas)} h por estadía en casa (ahí entra el sueño).`;
+    `${fmt1(casa.horas / casa.visitas)} h por estadía en casa.`;
 }
 
 /* ---------------------------------------------------------
    Parada 5 — Tendencia de fin de semana
 --------------------------------------------------------- */
 function renderTendenciaInsight(trend) {
-  const fullMonths = trend.slice(1, -1); // el primero y el último son meses parciales
+  // El gráfico de Tableau (Hoja5) solo muestra enero-agosto de 2026 —
+  // filtramos acá lo mismo, para no citar un mes que no está en el gráfico.
+  const trend2026 = trend.filter(d => d.mes.startsWith('2026'));
+  const fullMonths = trend2026.slice(0, -1); // agosto 2026 es un mes parcial (llega hasta el día 18)
   const peak = fullMonths.reduce((a, b) => b.horas > a.horas ? b : a);
   const low = fullMonths.reduce((a, b) => b.horas < a.horas ? b : a);
   document.getElementById('tendenciaInsight').innerHTML =
-    `Mi pico de salidas de fin de semana fue <strong>${formatMes(peak.mes)}</strong> (${fmt(peak.horas)} h fuera de casa); ` +
-    `el mes que más pasé en casa fue ${formatMes(low.mes)}, con ${fmt(low.horas)} h (comparando meses completos).`;
+    `Mi pico de salidas de fin de semana en 2026 fue <strong>${formatMes(peak.mes)}</strong> (${fmt(peak.horas)} h fuera de casa); ` +
+    `el mes más casero fue ${formatMes(low.mes)}, con solo ${fmt(low.horas)} h (comparando meses completos).`;
 }
 
 /* ---------------------------------------------------------
