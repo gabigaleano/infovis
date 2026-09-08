@@ -24,10 +24,10 @@
   --social:      #1baf7a; /* slot 3 aqua   */
   --sindatos:    #cfd0c8;
 
-  --seq-200: #9ec5f4;
-  --seq-350: #5598e7;
-  --seq-500: #256abf;
-  --seq-650: #104281;
+    --seq-200: #94e7a8;
+    --seq-350: #51d2bb;
+    --seq-500: #27aab0;
+    --seq-650: #116985;
 
   --accent:      var(--trabajo);
   --accent-ink:  #fff6ee;
@@ -57,10 +57,10 @@
     --social:      #1baf7a;
     --sindatos:    #34363b;
 
-    --seq-200: #6da7ec;
-    --seq-350: #2a78d6;
-    --seq-500: #184f95;
-    --seq-650: #0d366b;
+    --seq-200: #94e7a8;
+    --seq-350: #51d2bb;
+    --seq-500: #27aab0;
+    --seq-650: #116985;
 
     --accent-ink:  #1a1006;
     --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 16px 36px -18px rgba(0,0,0,0.7);
@@ -84,10 +84,10 @@
   --social:      #1baf7a;
   --sindatos:    #34363b;
 
-  --seq-200: #6da7ec;
-  --seq-350: #2a78d6;
-  --seq-500: #184f95;
-  --seq-650: #0d366b;
+    --seq-200: #94e7a8;
+    --seq-350: #51d2bb;
+    --seq-500: #27aab0;
+    --seq-650: #116985;
 
   --accent-ink:  #1a1006;
   --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 16px 36px -18px rgba(0,0,0,0.7);
