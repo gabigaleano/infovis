@@ -26,7 +26,7 @@
     <_.fcp.WorkbookFingerprinting.true...WorkbookFingerprinting />
     <WorksheetBackgroundTransparency />
   </document-format-change-manifest>
-  <repository-location derived-from='https://public.tableau.com/workbooks/Graphs_17883050788860?rev=1.9' id='Graphs_17883050788860' path='/workbooks' revision='2.2' />
+  <repository-location derived-from='https://public.tableau.com/workbooks/Graphs_17883050788860?rev=1.9' id='Graphs_17883050788860' path='/workbooks' revision='2.3' />
   <preferences>
     <preference name='ui.encoding.shelf.height' value='24' />
     <preference name='ui.shelf.height' value='26' />
@@ -39,7 +39,7 @@
             <connection class='textscan' directory='C:/Users/gabig/OneDrive/Documents/ITBA/Visualizacion/infovis/TP' filename='Timeline_procesado.csv' server='' workgroup-auth-mode='as-is' />
           </named-connection>
           <named-connection caption='viajes_casa_trabajo' name='textscan.0pgpwvg1bxybgo159ln301gg6q3o'>
-            <connection class='textscan' directory='C:/Users/gabig/OneDrive/Documents/ITBA/Visualizacion/infovis/TP' filename='viajes_casa_trabajo.csv' password='' server='' />
+            <connection class='textscan' directory='C:/Users/gabig/OneDrive/Documents/ITBA/Visualizacion/infovis/TP' filename='viajes_casa_trabajo.csv' password='' server='' workgroup-auth-mode='as-is' />
           </named-connection>
         </named-connections>
         <relation type='collection'>
@@ -603,7 +603,7 @@
         </drill-path>
       </drill-paths>
       <extract count='-1' enabled='true' object-id='' units='records' user-specific='false'>
-        <connection access_mode='readonly' author-locale='es_ES' class='hyper' dbname='Data/TableauTemp/#TableauTemp_0r53wzo1bcq7421b8yvw114ahsmv.hyper' default-settings='hyper' schema='Extract' sslmode='' tablename='Extract' update-time='09/08/2026 10:39:16 PM' username='tableau_internal_user'>
+        <connection access_mode='readonly' author-locale='es_ES' class='hyper' dbname='Data/TableauTemp/#TableauTemp_0r53wzo1bcq7421b8yvw114ahsmv.hyper' default-settings='hyper' schema='Extract' sslmode='' tablename='Extract' update-time='' username='tableau_internal_user'>
           <relation type='collection'>
             <relation name='Timeline_procesado.csv_986B238FE5364FED9EA9175940AB9865' table='[Extract].[Timeline_procesado.csv_986B238FE5364FED9EA9175940AB9865]' type='table' />
             <relation name='movilidad_procesada.csv_4426B25439AA4CBD81799DB1AEE746BA' table='[Extract].[movilidad_procesada.csv_4426B25439AA4CBD81799DB1AEE746BA]' type='table' />
@@ -650,7 +650,6 @@
               <aggregation>Year</aggregation>
               <approx-count>2107</approx-count>
               <contains-null>true</contains-null>
-              <object-id>[Timeline_procesado.csv_986B238FE5364FED9EA9175940AB9865]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>fin</remote-name>
@@ -664,7 +663,6 @@
               <aggregation>Year</aggregation>
               <approx-count>2190</approx-count>
               <contains-null>true</contains-null>
-              <object-id>[Timeline_procesado.csv_986B238FE5364FED9EA9175940AB9865]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>place_id</remote-name>
@@ -679,7 +677,6 @@
               <approx-count>426</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LES_RES' />
-              <object-id>[Timeline_procesado.csv_986B238FE5364FED9EA9175940AB9865]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>tipo_lugar</remote-name>
@@ -694,7 +691,6 @@
               <approx-count>31</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LES_RES' />
-              <object-id>[Timeline_procesado.csv_986B238FE5364FED9EA9175940AB9865]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>duracion</remote-name>
@@ -709,7 +705,6 @@
               <approx-count>1770</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LES_RES' />
-              <object-id>[Timeline_procesado.csv_986B238FE5364FED9EA9175940AB9865]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>mes_anio</remote-name>
@@ -724,7 +719,6 @@
               <approx-count>17</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LES_RES' />
-              <object-id>[Timeline_procesado.csv_986B238FE5364FED9EA9175940AB9865]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>dia_sem</remote-name>
@@ -738,7 +732,6 @@
               <aggregation>Sum</aggregation>
               <approx-count>7</approx-count>
               <contains-null>true</contains-null>
-              <object-id>[Timeline_procesado.csv_986B238FE5364FED9EA9175940AB9865]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>esFinSem</remote-name>
@@ -752,7 +745,6 @@
               <aggregation>Count</aggregation>
               <approx-count>2</approx-count>
               <contains-null>true</contains-null>
-              <object-id>[Timeline_procesado.csv_986B238FE5364FED9EA9175940AB9865]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>coordenadas</remote-name>
@@ -767,7 +759,6 @@
               <approx-count>432</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LES_RES' />
-              <object-id>[Timeline_procesado.csv_986B238FE5364FED9EA9175940AB9865]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>latitud</remote-name>
@@ -781,7 +772,6 @@
               <aggregation>Sum</aggregation>
               <approx-count>432</approx-count>
               <contains-null>true</contains-null>
-              <object-id>[Timeline_procesado.csv_986B238FE5364FED9EA9175940AB9865]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>longitud</remote-name>
@@ -795,7 +785,6 @@
               <aggregation>Sum</aggregation>
               <approx-count>432</approx-count>
               <contains-null>true</contains-null>
-              <object-id>[Timeline_procesado.csv_986B238FE5364FED9EA9175940AB9865]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>barrio</remote-name>
@@ -810,7 +799,6 @@
               <approx-count>49</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LES_RES' />
-              <object-id>[Timeline_procesado.csv_986B238FE5364FED9EA9175940AB9865]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>ciudad</remote-name>
@@ -825,7 +813,6 @@
               <approx-count>40</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LES_RES' />
-              <object-id>[Timeline_procesado.csv_986B238FE5364FED9EA9175940AB9865]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>provincia</remote-name>
@@ -840,7 +827,6 @@
               <approx-count>4</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LES_RES' />
-              <object-id>[Timeline_procesado.csv_986B238FE5364FED9EA9175940AB9865]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>inicio</remote-name>
@@ -854,7 +840,6 @@
               <aggregation>Year</aggregation>
               <approx-count>3464</approx-count>
               <contains-null>true</contains-null>
-              <object-id>[movilidad_procesada.csv_4426B25439AA4CBD81799DB1AEE746BA]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>fin</remote-name>
@@ -868,7 +853,6 @@
               <aggregation>Year</aggregation>
               <approx-count>3464</approx-count>
               <contains-null>true</contains-null>
-              <object-id>[movilidad_procesada.csv_4426B25439AA4CBD81799DB1AEE746BA]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>tipo_vehiculo</remote-name>
@@ -883,7 +867,6 @@
               <approx-count>6</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LEN_RUS' />
-              <object-id>[movilidad_procesada.csv_4426B25439AA4CBD81799DB1AEE746BA]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>distancia_metros</remote-name>
@@ -897,7 +880,6 @@
               <aggregation>Sum</aggregation>
               <approx-count>3370</approx-count>
               <contains-null>true</contains-null>
-              <object-id>[movilidad_procesada.csv_4426B25439AA4CBD81799DB1AEE746BA]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>duracion</remote-name>
@@ -912,7 +894,6 @@
               <approx-count>1373</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LEN_RUS' />
-              <object-id>[movilidad_procesada.csv_4426B25439AA4CBD81799DB1AEE746BA]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>fecha</remote-name>
@@ -926,7 +907,6 @@
               <aggregation>Year</aggregation>
               <approx-count>164</approx-count>
               <contains-null>true</contains-null>
-              <object-id>[viajes_casa_trabajo.csv_157AA59DE32443019C2F9BD7C94E8D44]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>mes_anio</remote-name>
@@ -941,7 +921,6 @@
               <approx-count>17</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LES_RES' />
-              <object-id>[viajes_casa_trabajo.csv_157AA59DE32443019C2F9BD7C94E8D44]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>hora_salida</remote-name>
@@ -955,7 +934,6 @@
               <aggregation>Hour</aggregation>
               <approx-count>273</approx-count>
               <contains-null>true</contains-null>
-              <object-id>[viajes_casa_trabajo.csv_157AA59DE32443019C2F9BD7C94E8D44]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>direccion</remote-name>
@@ -970,7 +948,6 @@
               <approx-count>2</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LES_RES' />
-              <object-id>[viajes_casa_trabajo.csv_157AA59DE32443019C2F9BD7C94E8D44]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>duracion_min</remote-name>
@@ -985,7 +962,6 @@
               <approx-count>262</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LES_RES' />
-              <object-id>[viajes_casa_trabajo.csv_157AA59DE32443019C2F9BD7C94E8D44]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>distancia_km</remote-name>
@@ -1000,7 +976,6 @@
               <approx-count>247</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LES_RES' />
-              <object-id>[viajes_casa_trabajo.csv_157AA59DE32443019C2F9BD7C94E8D44]</object-id>
             </metadata-record>
             <metadata-record class='column'>
               <remote-name>vehiculo</remote-name>
@@ -1015,7 +990,6 @@
               <approx-count>4</approx-count>
               <contains-null>true</contains-null>
               <collation flag='0' name='LES_RES' />
-              <object-id>[viajes_casa_trabajo.csv_157AA59DE32443019C2F9BD7C94E8D44]</object-id>
             </metadata-record>
           </metadata-records>
         </connection>
@@ -1925,13 +1899,13 @@
             </view>
             <mark class='Automatic' />
             <encodings>
-              <color column='[federated.0uhod2j0zdf1c710u35b30apmd2i].[none:tipo_lugar:nk]' />
               <text column='[federated.0uhod2j0zdf1c710u35b30apmd2i].[cnt:place_id:qk]' />
             </encodings>
             <style>
               <style-rule element='mark'>
                 <format attr='mark-labels-show' value='true' />
                 <format attr='mark-labels-cull' value='true' />
+                <format attr='mark-color' value='#69aaa5' />
               </style-rule>
             </style>
           </pane>
@@ -1989,7 +1963,6 @@
                   <groupfilter function='member' level='[none:tipo_lugar:nk]' member='&quot;Casa tio&quot;' />
                   <groupfilter function='member' level='[none:tipo_lugar:nk]' member='&quot;Decathlon&quot;' />
                   <groupfilter function='member' level='[none:tipo_lugar:nk]' member='&quot;DOT&quot;' />
-                  <groupfilter function='member' level='[none:tipo_lugar:nk]' member='&quot;HOME&quot;' />
                   <groupfilter function='member' level='[none:tipo_lugar:nk]' member='&quot;INFERRED_HOME&quot;' />
                   <groupfilter function='member' level='[none:tipo_lugar:nk]' member='&quot;INFERRED_WORK&quot;' />
                   <groupfilter function='member' level='[none:tipo_lugar:nk]' member='&quot;Monumental&quot;' />
@@ -2111,6 +2084,9 @@
           <aggregation value='true' />
         </view>
         <style>
+          <style-rule element='axis'>
+            <format attr='title' class='0' field='[federated.0uhod2j0zdf1c710u35b30apmd2i].[sum:Calculation_0118786133504001:qk]' scope='rows' value='Tiempo fuera de casa en horas' />
+          </style-rule>
           <style-rule element='worksheet'>
             <format attr='display-field-labels' scope='cols' value='false' />
           </style-rule>
@@ -2121,12 +2097,11 @@
               <breakdown value='auto' />
             </view>
             <mark class='Bar' />
-            <encodings>
-              <color column='[federated.0uhod2j0zdf1c710u35b30apmd2i].[none:mes_anio:nk]' />
-            </encodings>
             <style>
               <style-rule element='mark'>
                 <format attr='mark-color' value='#69aaa5' />
+                <format attr='mark-labels-cull' value='true' />
+                <format attr='mark-labels-show' value='false' />
               </style-rule>
             </style>
           </pane>
@@ -2283,8 +2258,8 @@
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='700' minheight='700' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='33' type-v2='layout-basic' w='100000' x='0' y='0'>
-              <zone h='84000' id='32' param='vert' type-v2='layout-flow' w='84000' x='8000' y='8000'>
+            <zone h='100000' id='35' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98216' id='34' param='vert' type-v2='layout-flow' w='98368' x='816' y='892'>
                 <zone h='10465' id='8' mode='checkdropdown' name='Hoja 1' param='[federated.0uhod2j0zdf1c710u35b30apmd2i].[none:provincia:nk]' show-all='false' show-title='false' type-v2='filter' values='cascading' w='29692' x='66615' y='7674'>
                   <zone-style>
                     <format attr='border-color' value='#ffffff' />
@@ -2374,7 +2349,7 @@
       </cards>
       <simple-id uuid='{F38B2389-DADA-416C-892F-1C50C0024CA9}' />
     </window>
-    <window class='worksheet' name='Hoja 3'>
+    <window class='worksheet' maximized='true' name='Hoja 3'>
       <cards>
         <edge name='left'>
           <strip size='160'>
@@ -2396,7 +2371,7 @@
       </cards>
       <simple-id uuid='{C7CDF3B5-FD93-448A-AC9C-63821F565C7F}' />
     </window>
-    <window class='worksheet' maximized='true' name='Hoja 4'>
+    <window class='worksheet' name='Hoja 4'>
       <cards>
         <edge name='left'>
           <strip size='160'>
