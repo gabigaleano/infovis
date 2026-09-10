@@ -498,7 +498,7 @@ section.chapter:first-of-type { border-top: none; }
   border-radius: 4px;
   overflow: hidden;
   background: var(--surface-2);
-  min-height: 500px;
+  min-height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;

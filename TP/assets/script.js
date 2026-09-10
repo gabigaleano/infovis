@@ -73,7 +73,7 @@ function init(data) {
   renderMapInsight(data.map_points);
   renderCiudadesInsight(data.cities);
   renderVehiculosInsight(data.vehicles);
-  renderLugaresInsight(data.placetypes);
+  renderLugaresInsight(data.map_points);
   renderTendenciaInsight(data.weekend_trend);
   renderClima(data.rain_cat, data.weather_summary);
 }
@@ -132,16 +132,25 @@ function renderVehiculosInsight(vehicles) {
 }
 
 /* ---------------------------------------------------------
-   Parada 4 — Lugares más visitados
+   Parada 4 — Ranking de lugares por horas acumuladas
+   (mismo agrupamiento que el gráfico de Tableau: por nombre
+   de lugar, excluyendo mi casa y el trabajo)
 --------------------------------------------------------- */
-function renderLugaresInsight(placetypes) {
-  const casa = placetypes.find(p => p.categoria === 'Casa');
-  const trabajo = placetypes.find(p => p.categoria === 'Trabajo');
+function renderLugaresInsight(points) {
+  const otros = points.filter(p => p.categoria !== 'Casa' && p.categoria !== 'Trabajo');
+  const ranking = d3.rollups(
+    otros,
+    v => ({ horas: d3.sum(v, d => d.horas), visitas: d3.sum(v, d => d.visitas) }),
+    p => p.nombre
+  ).map(([nombre, s]) => ({ nombre, ...s }))
+   .sort((a, b) => b.horas - a.horas);
+  const top = ranking[0];
+  const second = ranking[1];
+  const ratio = top.horas / second.horas;
   document.getElementById('lugaresInsight').innerHTML =
-    `El trabajo es, en realidad, mi categoría con <strong>más paradas registradas</strong> ` +
-    `(${fmt(trabajo.visitas)}, contra ${fmt(casa.visitas)} en casa) — pero son mucho más cortas: ` +
-    `en promedio ${fmt1(trabajo.horas / trabajo.visitas)} h por parada de trabajo, contra ` +
-    `${fmt1(casa.horas / casa.visitas)} h por estadía en casa (ahí entra el sueño).`;
+    `Fuera de mi casa y del trabajo, el lugar donde más tiempo acumulo es <strong>${top.nombre}</strong>, ` +
+    `con ${fmt(top.horas)} horas repartidas en ${top.visitas} visitas — ${fmt1(ratio)} veces más que en ` +
+    `${second.nombre}, mi segundo lugar (${fmt(second.horas)} h).`;
 }
 
 /* ---------------------------------------------------------
