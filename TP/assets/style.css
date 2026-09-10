@@ -125,6 +125,7 @@ h1, h2, .display {
 .wrap.wide { max-width: 1060px; }
 .wrap.wide.wrap-dashboard { max-width: 1060px; }
 .wrap-dashboard .card { padding-left: 12px; padding-right: 12px; }
+#lugares .card { padding: 0; }
 @media (min-width: 860px) and (max-width: 1500px) {
   main .wrap.wide.wrap-dashboard { padding-left: 60px; }
   .wrap-dashboard.wrap.wide::before { left: 25px; }
