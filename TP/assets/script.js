@@ -74,7 +74,7 @@ function init(data) {
   renderCiudadesInsight(data.cities);
   renderVehiculosInsight(data.vehicles);
   renderLugaresInsight(data.map_points);
-  renderTendenciaInsight(data.weekend_trend);
+  renderVehiculosMesInsight(data.vehicle_month);
   renderClima(data.rain_cat, data.weather_summary);
 }
 
@@ -154,18 +154,27 @@ function renderLugaresInsight(points) {
 }
 
 /* ---------------------------------------------------------
-   Parada 5 — Tendencia de fin de semana
+   Parada 5 — Ranking mensual de vehículos (bump chart, RAWGraphs)
+   El gráfico en sí es un SVG estático (ver index.html); acá solo
+   se arma el texto de lectura a partir de los mismos datos.
 --------------------------------------------------------- */
-function renderTendenciaInsight(trend) {
-  // El gráfico de Tableau (Hoja5) solo muestra enero-agosto de 2026 —
-  // filtramos acá lo mismo, para no citar un mes que no está en el gráfico.
-  const trend2026 = trend.filter(d => d.mes.startsWith('2026'));
-  const fullMonths = trend2026.slice(0, -1); // agosto 2026 es un mes parcial (llega hasta el día 18)
-  const peak = fullMonths.reduce((a, b) => b.horas > a.horas ? b : a);
-  const low = fullMonths.reduce((a, b) => b.horas < a.horas ? b : a);
-  document.getElementById('tendenciaInsight').innerHTML =
-    `Mi pico de salidas de fin de semana en 2026 fue <strong>${formatMes(peak.mes)}</strong> (${fmt(peak.horas)} h fuera de casa); ` +
-    `el mes más casero fue ${formatMes(low.mes)}, con solo ${fmt(low.horas)} h (comparando meses completos).`;
+const VEHICULO_LABEL = {
+  AUTO: 'el auto', COLECTIVO: 'el colectivo', MOTO: 'la moto',
+  CAMINANDO: 'caminando', SUBTE: 'el subte', TREN: 'el tren',
+};
+function renderVehiculosMesInsight(vehicleMonth) {
+  const porMes = d3.groups(vehicleMonth, d => d.mes)
+    .map(([mes, rows]) => ({ mes, vehiculo: rows.reduce((a, b) => b.km > a.km ? b : a).vehiculo }));
+  const conteo = d3.rollup(porMes, v => v.length, d => d.vehiculo);
+  const [topVeh, topCount] = [...conteo.entries()].sort((a, b) => b[1] - a[1])[0];
+  const otrosMeses = porMes.filter(d => d.vehiculo !== topVeh);
+  const otrosVeh = [...new Set(otrosMeses.map(d => d.vehiculo))].map(v => VEHICULO_LABEL[v]);
+  const topLabel = VEHICULO_LABEL[topVeh];
+  document.getElementById('vehiculosMesInsight').innerHTML =
+    `<strong>${topLabel[0].toUpperCase()}${topLabel.slice(1)}</strong> lidera el ranking mensual de kilómetros en ` +
+    `${topCount} de los ${porMes.length} meses registrados — pero ${otrosVeh.join(' y ')} le ` +
+    `${otrosVeh.length > 1 ? 'sacan' : 'saca'} el primer puesto ${otrosMeses.length === 1 ? 'una vez' : otrosMeses.length + ' veces'}: ` +
+    `${otrosMeses.map(d => formatMes(d.mes)).join(', ')}.`;
 }
 
 /* ---------------------------------------------------------
